@@ -1,0 +1,16 @@
+# Sensitive env files
+.env
+.env.*
+
+# Runtime logs and data
+logs/
+*.log
+runtime/
+data/
+*.pid
+
+# Local generated deployment artifacts
+generated/
+
+# macOS
+.DS_Store

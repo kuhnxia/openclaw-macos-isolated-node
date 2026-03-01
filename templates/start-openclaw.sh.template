@@ -1,0 +1,7 @@
+#!/bin/zsh
+set -euo pipefail
+
+# Render placeholders with real paths/command on the target machine.
+source {{ENV_PATH}}
+cd {{APP_DIR}}
+exec {{START_COMMAND}}
