@@ -143,9 +143,12 @@ sudo tee /Users/svc_openclaw/.openclaw/openclaw.json >/dev/null <<'JSON'
     "providers": {
       "openai": {
         "baseUrl": "https://api.openai.com/v1",
-        "api": "openai-responses",
+        "api": "openai-completions",
+        "apiKey": "REPLACE_OPENAI_API_KEY",
         "models": [
-          { "id": "gpt-5.1-codex", "name": "gpt-5.1-codex" }
+          { "id": "kimi-k2.5", "name": "kimi-k2.5" },
+          { "id": "qwen3-max", "name": "qwen3-max" },
+          { "id": "deepseek-v3.2", "name": "deepseek-v3.2" }
         ]
       }
     }
@@ -153,7 +156,11 @@ sudo tee /Users/svc_openclaw/.openclaw/openclaw.json >/dev/null <<'JSON'
   "agents": {
     "defaults": {
       "model": {
-        "primary": "openai/gpt-5.1-codex"
+        "primary": "openai/kimi-k2.5",
+        "fallbacks": [
+          "openai/qwen3-max",
+          "openai/deepseek-v3.2"
+        ]
       }
     }
   },
@@ -183,9 +190,10 @@ sudo vim /Users/svc_openclaw/.openclaw/openclaw.json
 替换以下字段：
 - `REPLACE_GATEWAY_TOKEN`
 - `baseUrl`
-- `api`（你的三方中转支持哪种就写哪种，例如 `openai-responses`）
-- `models[0].id/name`
-- `primary`
+- `api`（默认推荐 `openai-completions`）
+- `apiKey`（写在 `models.providers.openai.apiKey`）
+- `models[].id/name`
+- `primary` 与 `fallbacks`
 - `REPLACE_FEISHU_APP_ID`
 - `REPLACE_FEISHU_APP_SECRET`
 
@@ -391,3 +399,15 @@ bash scripts/verify-service.sh
 - 不要把 API Key / 飞书 secret 提交到 Git。
 - 不要把密钥贴到公开聊天或截图。
 - 一旦泄露，立即去平台后台轮换密钥并重启服务。
+
+---
+
+## 15. 后续用 cc-switch 切换 API（可选）
+- 第一次部署完成并验证可用后，可以安装 `cc-switch` 管理 API 配置切换。
+- 关键注意：请先切换到 `svc_openclaw` 的 GUI 会话，再打开 `cc-switch`。
+- 原因：OpenClaw 配置在服务用户目录下，`cc-switch` 只有在对应用户会话中才能正确检测到该实例并修改配置。
+- 切换后仍按标准流程执行：
+  1. JSON 校验
+  2. `chown/chmod`
+  3. `sudo launchctl kickstart -k system/com.openclaw.service`
+  4. `bash scripts/verify-service.sh`

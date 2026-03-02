@@ -23,9 +23,9 @@
 
 流程：
 1) 先验收（scripts/verify-service.sh）。
-2) 如需改配置，先备份再改，改后重启并复检。
-3) 如需升级，先记录当前版本，再执行升级和回归验证。
-4) 失败则回滚到上一个可用版本。
+2) 配置只改 `/Users/svc_openclaw/.openclaw/openclaw.json`。
+3) 改配置固定流程：备份 -> json校验 -> chown/chmod -> kickstart -> verify。
+4) API 关键字段依次核对：`baseUrl/api/apiKey/models[]/primary/fallbacks`。
 5) 只解读最新时段日志，历史报错仅作参考。
 
 每一步固定输出：

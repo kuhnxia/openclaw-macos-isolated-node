@@ -11,11 +11,16 @@
     "providers": {
       "openai": {
         "baseUrl": "__REPLACE_BASE_URL__",
-        "api": "__REPLACE_API_KIND__",
+        "api": "openai-completions",
+        "apiKey": "__REPLACE_OPENAI_API_KEY__",
         "models": [
           {
-            "id": "__REPLACE_MODEL_ID__",
-            "name": "__REPLACE_MODEL_NAME__"
+            "id": "__REPLACE_MODEL_ID_PRIMARY__",
+            "name": "__REPLACE_MODEL_NAME_PRIMARY__"
+          },
+          {
+            "id": "__REPLACE_MODEL_ID_FALLBACK_1__",
+            "name": "__REPLACE_MODEL_NAME_FALLBACK_1__"
           }
         ]
       }
@@ -24,7 +29,10 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "openai/__REPLACE_MODEL_ID__"
+        "primary": "openai/__REPLACE_MODEL_ID_PRIMARY__",
+        "fallbacks": [
+          "openai/__REPLACE_MODEL_ID_FALLBACK_1__"
+        ]
       }
     }
   },

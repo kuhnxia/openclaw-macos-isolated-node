@@ -22,8 +22,14 @@
 4) 使用 launchd 完成服务化并进行验收。
 
 强制停顿确认点（必须逐条确认）：
-1) API 配置键名：`baseUrl`（禁止 `baseURL`）、`models[]`、`primary=provider/model`。
-2) 飞书顺序：先写 appId/appSecret 到 OpenClaw 并重启，再去飞书配置长连接事件与权限。
+1) API 配置必须一次核对：
+- `models.providers.openai.baseUrl`
+- `models.providers.openai.api`（默认 `openai-completions`）
+- `models.providers.openai.apiKey`
+- `models.providers.openai.models[]`
+- `agents.defaults.model.primary`
+- `agents.defaults.model.fallbacks[]`
+2) 飞书顺序：先写 appId/appSecret 到 openclaw.json 并重启，再去飞书配置长连接事件与权限。
 3) 每次手工改配置后必须执行：`json 校验 -> chown/chmod -> kickstart -> verify`。
 
 每一步都按以下格式输出：

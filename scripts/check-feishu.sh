@@ -61,6 +61,6 @@ else
 fi
 
 echo "== Suggested next action =="
-echo "1) If no pending pairing request: set dmPolicy=pairing, restart, then DM the bot once."
+echo "1) Verify openclaw.json channels.feishu fields first (enabled/connectionMode/accounts/dmPolicy)."
 echo "2) If permission errors exist: add required Feishu scopes and publish a new app version."
-echo "3) After pairing works: switch dmPolicy to allowlist and set allowFrom with ou_xxx."
+echo "3) For first bind use dmPolicy=pairing, then switch to allowlist + allowFrom after success."

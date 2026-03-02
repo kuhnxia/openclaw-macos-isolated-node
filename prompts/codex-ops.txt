@@ -22,10 +22,10 @@
 
 操作规则：
 1) 先运行 scripts/verify-service.sh。
-2) 变更配置前先备份。
-3) 任何异常按固定顺序排查：launchctl -> channel probe -> stderr -> port -> permission -> vars。
-4) 日志阅读只看“本次重启后的最新时段”，避免被历史错误干扰。
-5) `duplicate plugin id` 归类为非阻断警告（除非确认导致功能冲突）。
+2) 配置变更只围绕 `/Users/svc_openclaw/.openclaw/openclaw.json`。
+3) 变更前先备份，变更后固定执行：`json 校验 -> 权限修复 -> kickstart -> verify`。
+4) API 字段检查顺序：`baseUrl -> api -> apiKey -> models[] -> primary -> fallbacks`。
+5) 异常排查顺序：launchctl -> channel probe -> stderr -> port -> permission -> vars。
 
 每一步输出格式：
 - 目的：

@@ -46,6 +46,10 @@ bash scripts/verify-service.sh
 3. 飞书顺序错误：先把 `appId/appSecret` 写进 OpenClaw 并重启，再去飞书配置长连接事件。  
 4. 配置改完没修权限或没重启：要做 `json校验 -> chown/chmod -> kickstart -> verify`。
 
+## 后续改 API（cc-switch）
+- 第一次配置跑通后，可以安装 `cc-switch` 做后续 API 切换。
+- 关键注意：必须切换到 `svc_openclaw` 的 GUI 会话中打开 `cc-switch`，它才能检测并修改该用户下的 OpenClaw 配置。
+
 ## 飞书接入顺序（务必按这个来）
 1. 飞书创建应用，拿 `appId/appSecret`。  
 2. 先写入 OpenClaw 配置并重启服务。  
@@ -78,3 +82,4 @@ bash scripts/check-feishu.sh   # 仅在启用飞书时
 - 快速开始（Agent 视角）：`docs/quickstart.md`
 - 日常运维：`docs/ops.md`
 - 故障排查：`docs/troubleshooting.md`
+- Self-Ops Skill（交给 OpenClaw 执行配置改动）：`prompts/openclaw-self-ops-skill.txt`

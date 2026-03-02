@@ -113,6 +113,12 @@ if [[ -f "$CONFIG_FILE" ]]; then
       warn "models.providers.openai.models[] is missing or empty"
     fi
 
+    if jq -e '.models.providers.openai.apiKey? | type == "string" and length > 0' "$CONFIG_FILE" >/dev/null 2>&1; then
+      pass "Found models.providers.openai.apiKey (value hidden)"
+    else
+      warn "models.providers.openai.apiKey is missing or empty"
+    fi
+
     primary="$(jq -r '.agents.defaults.model.primary // empty' "$CONFIG_FILE")"
     if [[ -n "$primary" ]]; then
       if [[ "$primary" == */* ]]; then
@@ -122,6 +128,12 @@ if [[ -f "$CONFIG_FILE" ]]; then
       fi
     else
       warn "agents.defaults.model.primary not found"
+    fi
+
+    if jq -e '.agents.defaults.model.fallbacks? | type == "array" and length > 0' "$CONFIG_FILE" >/dev/null 2>&1; then
+      pass "Found agents.defaults.model.fallbacks[]"
+    else
+      warn "agents.defaults.model.fallbacks[] is missing or empty (recommended)"
     fi
   else
     warn "Skip deep config checks because jq is unavailable"

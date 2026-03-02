@@ -26,7 +26,7 @@
 4) 验收：状态、端口、属主、错误日志。
 
 强制停顿确认点：
-1) API 键名必须正确：`baseUrl`、`models[]`、`primary=provider/model`。
+1) API 配置必须一次核对：`baseUrl`、`api=openai-completions(默认)`、`apiKey`、`models[]`、`primary`、`fallbacks`。
 2) 飞书先写 appId/appSecret 并重启 OpenClaw，再配置长连接事件和权限。
 3) 每次手改配置后固定流程：`json 校验 -> chown/chmod -> kickstart -> verify`。
 

@@ -86,6 +86,6 @@ if [[ "$ok" == true ]]; then
   echo "RESULT: 可用。建议：保留当前配置并记录可用快照。"
   exit 0
 else
-  echo "RESULT: 不可用。建议：按顺序检查 launchctl -> channel probe -> stderr 首错 -> 配置字段与权限。"
+  echo "RESULT: 不可用。建议：按顺序检查 launchctl -> channel probe -> stderr 首错 -> openclaw.json(api/baseUrl/apiKey/models/primary/fallbacks) -> 权限。"
   exit 1
 fi
