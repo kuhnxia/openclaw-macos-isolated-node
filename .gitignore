@@ -17,5 +17,9 @@ generated/
 *.tmp.json
 *.local.json
 
+# Local working OpenClaw config (may contain real keys)
+openclaw.json
+openclaw.local.json
+
 # macOS
 .DS_Store

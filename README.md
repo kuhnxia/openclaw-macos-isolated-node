@@ -47,11 +47,22 @@ lsof -nP -iTCP:3030 -sTCP:LISTEN
 1. `baseURL` 写错：必须是 `baseUrl`。  
 2. `primary` 没写 provider：必须是 `openai/<model>`。  
 3. 飞书顺序错误：先把 `appId/appSecret` 写进 OpenClaw 并重启，再去飞书配置长连接事件。  
-4. 配置改完没修权限或没重启：要做 `json校验 -> chown/chmod -> kickstart -> verify`。
+4. 配置改完流程不统一：统一执行 `编辑项目 openclaw.json -> json校验 -> sudo install -> kickstart -> 验收`。
 
 ## 后续改 API（cc-switch）
 - 第一次配置跑通后，可以安装 `cc-switch` 做后续 API 切换。
 - 关键注意：必须切换到 `svc_openclaw` 的 GUI 会话中打开 `cc-switch`，它才能检测并修改该用户下的 OpenClaw 配置。
+
+## 手工改配置（统一操作法）
+- 在仓库根目录直接打开并编辑 `openclaw.json`（任意图形编辑器）。
+- 然后执行：
+```bash
+python3 -m json.tool openclaw.json >/dev/null && echo OK
+sudo install -o svc_openclaw -g staff -m 600 openclaw.json /Users/svc_openclaw/.openclaw/openclaw.json
+sudo launchctl kickstart -k system/com.openclaw.service
+sudo launchctl print system/com.openclaw.service | grep -E "state =|pid ="
+lsof -nP -iTCP:3030 -sTCP:LISTEN
+```
 
 ## 飞书接入顺序（务必按这个来）
 1. 飞书创建应用，拿 `appId/appSecret`。  
